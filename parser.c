@@ -10,7 +10,7 @@ char **parse_line(char *line)
 	char *token, *copy, **tokens;
 	unsigned int i;
 
-	tokens = malloc(sizeof(char *) * 3); /* only need space for 2 tokens (so far) */
+	tokens = malloc(sizeof(char *) * 3);
 	copy = strdup(line); /* free me? */
 	token = strtok(copy, " ");
 	i = 0;
@@ -19,6 +19,7 @@ char **parse_line(char *line)
 		if (strcmp(token, "push") == 0 || strcmp(token, "pall") == 0)
 		{
 			tokens[0] = token;
+			token = strtok(NULL, " ");
 			tokens[1] = token;
 			tokens[2] = NULL;
 			return (tokens);
