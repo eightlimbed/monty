@@ -24,11 +24,11 @@ char **parse_line(char *line)
 			tokens[2] = NULL;
 			return (tokens);
 		}
+		free(copy);
 		return (NULL);
 		i++;
 	}
 }
-
 /**
  * valid_op - determines if a token is a valid operation
  * @tokens: array of strings (tokens)
@@ -61,5 +61,15 @@ int valid_op(char **tokens)
  */
 int valid_arg(char **tokens)
 {
+	unsigned int i;
 	
+	i = 0;
+	while (tokens[1][i] != '\0')
+	{
+		if (tokens[1][0] != '-' || 
+		   (!(tokens[1][i] >= '0' && tokens[1][i] <= '9')))
+			return (0);
+		i++;
+	}
+	return (1);
 }
