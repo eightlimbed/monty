@@ -6,7 +6,7 @@ int main(void)
 	unsigned int i;
 	int x;
 	
-	tokens = parse_line("  ragged  ");
+	tokens = parse_line("  push 3 ");
 	if (tokens == NULL)
 	{
 		printf("null tokens\n");
