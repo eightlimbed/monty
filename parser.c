@@ -17,7 +17,7 @@ char **parse_line(char *line)
 	}
 	tokens = malloc(sizeof(char *) * 3);
 	copy = strdup(line); /* free me? */
-	token = strtok(copy, " \n");
+	token = strtok(copy, " ");
 	i = 0;
 	while (token != NULL)
 	{
@@ -29,7 +29,7 @@ char **parse_line(char *line)
 				tokens[1] = NULL;
 				return (tokens);
 			}
-			token = strtok(NULL, " \n");
+			token = strtok(NULL, " ");
 			tokens[1] = token;
 			tokens[2] = NULL;
 			return (tokens);
