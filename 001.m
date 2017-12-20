@@ -1,25 +1,10 @@
-push 30
+push 42
+pall 6
+
+pall
 
 push 30
-push 30
-push 30
-pall
- pall
-   push  5
 
-pall
-pall
- pall
-   push  5
-
-pall
-pall
- pall
-   push  5
-
-pall
-pall
- pall
-   push  5
-
-pall
+push
+push -20
+push - 23

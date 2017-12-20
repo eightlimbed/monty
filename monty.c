@@ -6,37 +6,59 @@
  * Return: void
  */
 
+stack_t **stack = NULL;
 void readfile(char *filename)
 {
 	int number = 0, i = 0;
-	char *buffer = NULL;
+	char **tokens, *buffer = NULL;
 	size_t size = 0;
 	FILE *file;
-	char **tokens;
 
 	file = fopen(filename, "r");
 	if (file == NULL)
 	{
-		fclose (file);
-		printf("Error: Can't open file <%s>\n", filename);
+		printf("Error: Can't open file %s\n", filename);
+		free(buffer);
 		exit(EXIT_FAILURE);
 	}
 	while (-1 != getline(&buffer, &size, file))
 	{
+		number++;
 		tokens = parse_line(buffer);
-		printf("%d: %s\t%s\n", number++, tokens[0], tokens[1]);
+		if (valid_op(tokens))
+		{
+			/* do stuff */
+			get_op_func(tokens)(stack, number, tokens[1]);
+		}
+		if (tokens == NULL)
+		{
+			/* blank line */
+			free(tokens);
+			free(buffer);
+			continue;
+		}
+		if (!(valid_op(tokens)))
+		{
+			dprintf(2,"L%d: unknown instruction %s\n", number, tokens[0]);
+			free(tokens);
+			free(buffer);
+			fclose(file);
+			exit(EXIT_FAILURE);
+		}
 	}
-	fclose(file);
+	free(tokens);
 	free(buffer);
+	fclose(file);
 }
 
 int main(int argc, char *argv[])
 {
 	char *filename;
+
 	filename = argv[1];
 	if (argc != 2)
 	{
-		printf("USAGE: monty file");
+		dprintf(2, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	readfile(filename);
