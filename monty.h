@@ -36,8 +36,11 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+extern stack_t **stack;
 char **parse_line(char *line);
 int valid_op(char **tokens);
 int valid_arg(char *tokens);
-void push(int value);
+void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number);
+void op_push(stack_t **stack, unsigned int line_number);
+void op_pall(stack_t **stack, unsigned int line_number);
 #endif

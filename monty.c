@@ -6,6 +6,7 @@
  * Return: void
  */
 
+stack_t **stack = NULL;
 void readfile(char *filename)
 {
 	int number = 0, i = 0;
@@ -17,14 +18,27 @@ void readfile(char *filename)
 	if (file == NULL)
 	{
 		printf("Error: Can't open file %s\n", filename);
-		/* i don't think you can close() a null file -- it was segfaulting */
 		exit(EXIT_FAILURE);
 	}
 	while (-1 != getline(&buffer, &size, file))
 	{
+		number++;
 		tokens = parse_line(buffer);
 		if (valid_op(tokens))
-			printf("%s %s is valid\n", tokens[0], tokens[1]);
+		{
+			/* do stuff */
+			get_op_func(tokens)(stack, number);
+		}
+		if (tokens == NULL)
+		{
+			/* empty line */
+			continue;
+		}
+		if (!(valid_op(tokens)))
+		{
+			dprintf(2,"L%d: unknown instruction %s\n", number, tokens[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	fclose(file);
 	free(buffer);

@@ -1,5 +1,29 @@
 #include "monty.h"
 /**
+ * get_op_func - selects the correct function to perform from tokens
+ * @tokens: array of strings
+ * @line_number: line number in monty code file
+ *
+ * Return: pointer to the appropriate function, or NULL if not valid
+ */
+void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number)
+{
+	instruction_t ops[] = {
+		{"push", op_push},
+		{"pall", op_pall},
+		{NULL, NULL}
+	};
+	unsigned int  i = 0;
+
+	while (ops[i].opcode != NULL)
+	{
+		if ((strcmp(ops[i].opcode, tokens[0]) == 0) && valid_arg(tokens[1]))
+			return(ops[i].f);
+		i++;
+	}
+	return (NULL);
+}
+/**
  * parse_line - parses a line into tokens. tokens separated by spaces. only
  * first two tokens will be returned.
  * @line: buffer from getline in readfile() in monty.c.
@@ -25,20 +49,17 @@ char **parse_line(char *line)
 		{
 			tokens[0] = token;
 			if (strcmp(token, "pall") == 0)
-			/* pall's second token will be NULL because it takes no args */
 			{
 				tokens[1] = NULL;
 				return (tokens);
 			}
 			token = strtok(NULL, " \n");
-			/* argument */
 			tokens[1] = token;
 			tokens[2] = NULL;
 			return (tokens);
 		}
 		else
 		{
-			/* if not "push" or "pall", the whole line becomes token[0] */
 			tokens[0] = line;
 			tokens[1] = NULL;
 			return (tokens);
@@ -55,7 +76,8 @@ char **parse_line(char *line)
  */
 int valid_op(char **tokens)
 {
-	printf("tokens: \n0: [%s]\n1: [%s]\n", tokens[0], tokens[1]);
+	if (tokens == NULL)
+		return (0);
 	if (strcmp(tokens[0], "push") == 0)
 	{
 		/* if "push" we need to check token[1] for valid arg */
