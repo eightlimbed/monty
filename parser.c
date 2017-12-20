@@ -1,9 +1,10 @@
 #include "monty.h"
 /**
- * parse_line - parses a line into tokens
- * @line: string
+ * parse_line - parses a line into tokens. tokens separated by spaces. only
+ * first two tokens will be returned.
+ * @line: buffer from getline in readfile() in monty.c.
  *
- * Return: array of strings (tokens)
+ * Return: null-terminated array of two tokens, or NU
  */
 char **parse_line(char *line)
 {
@@ -17,32 +18,33 @@ char **parse_line(char *line)
 	}
 	tokens = malloc(sizeof(char *) * 3);
 	copy = strdup(line); /* free me? */
-	token = strtok(copy, " ");
-	i = 0;
+	token = strtok(copy, " \n");
 	while (token != NULL)
 	{
 		if (strcmp(token, "push") == 0 || strcmp(token, "pall") == 0)
 		{
 			tokens[0] = token;
 			if (strcmp(token, "pall") == 0)
+			/* pall's second token will be NULL because it takes no args */
 			{
 				tokens[1] = NULL;
 				return (tokens);
 			}
-			token = strtok(NULL, " ");
+			token = strtok(NULL, " \n");
+			/* argument */
 			tokens[1] = token;
 			tokens[2] = NULL;
 			return (tokens);
 		}
 		else
 		{
+			/* if not "push" or "pall", the whole line becomes token[0] */
 			tokens[0] = line;
 			tokens[1] = NULL;
 			return (tokens);
 		}
 		free(copy);
 		return (NULL);
-		i++;
 	}
 }
 /**
@@ -53,40 +55,70 @@ char **parse_line(char *line)
  */
 int valid_op(char **tokens)
 {
-	unsigned int i;
-	char *ops[3];
-
-	ops[0] = "push";
-	ops[1] = "pall";
-	ops[2] = NULL;
-
-	i = 0;
-	while (ops[i] != NULL)
+	printf("tokens: \n0: [%s]\n1: [%s]\n", tokens[0], tokens[1]);
+	if (strcmp(tokens[0], "push") == 0)
 	{
-		if (strcmp(tokens[0], ops[i]) == 0)
+		/* if "push" we need to check token[1] for valid arg */
+		if (tokens[1] == NULL)
+			return (0);
+		else
+		{
+			if (valid_arg(tokens[1]))
+				return (1);
+		}
+	}
+	else if (strcmp(tokens[0], "pall") == 0)
+	{
+		if (tokens[1] == NULL)
 			return (1);
-		i++;
+		else
+			return (0);
 	}
 	return (0);
 }
 /**
- * valid_arg - determines if a token is a valid argument (pos or neg integer)
- * @tokens: array of strings (tokens)
+ * valid_arg - determines if a token is a valid argument
+ * @token: argument token from valid_op.
  *
  * Return: 1 if valid argument, 0 if not
  */
-int valid_arg(char **tokens)
+int valid_arg(char *token)
 {
 	unsigned int i;
 	
-	printf("valid_arg looking at %s\n", tokens[1]);
+	/* if token is NULL its an op with no argument, so its valid */
+	if (token == NULL)
+		return (1);
 	i = 0;
-	while (tokens[1][i] != '\0')
+	while (token[i] != '\0')
 	{
-		if (tokens[1][0] != '-' &&
-		   (!(tokens[1][i] >= '0' && tokens[1][i] <= '9')))
+		if (token[0] == '-')
+		{
+			if ((!(token[1] >= '0' && token[1] <= '9')) || token[1] == '\0')
+				return (0);
+			else
+			{
+				i = 1;
+				while (token[i] >= '0' && token[i] <= '9')
+				{
+					i++;
+					if (token[i] == '\0')
+						return (1);
+				}
+				return (0);
+			}
+		}
+		else
+		{
+			i = 0;
+			while (token[i] >= '0' && token[i] <= '9')
+			{
+				i++;
+				if (token[i] == '\0')
+					return (1);
+			}
 			return (0);
-		i++;
+		}
 	}
-	return (1);
+	return (0);
 }

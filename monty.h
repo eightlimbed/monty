@@ -38,5 +38,6 @@ typedef struct instruction_s
 } instruction_t;
 char **parse_line(char *line);
 int valid_op(char **tokens);
-int valid_arg(char **tokens);
+int valid_arg(char *tokens);
+void push(int value);
 #endif
