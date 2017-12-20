@@ -34,6 +34,12 @@ char **parse_line(char *line)
 			tokens[2] = NULL;
 			return (tokens);
 		}
+		else
+		{
+			tokens[0] = line;
+			tokens[1] = NULL;
+			return (tokens);
+		}
 		free(copy);
 		return (NULL);
 		i++;
