@@ -2,23 +2,38 @@
 
 int main(void)
 {
+	int i;
+	ssize_t bytes_read;
+	long int file_size;
+	char *dir;
+	char *buffer;
+	char *fullname;
+	FILE *fp;
+	char *line = NULL;
+	size_t len = 0;
 	char **tokens;
-	unsigned int i;
-	int x;
-	
-	tokens = parse_line("pill 0");
-	if (tokens == NULL)
+
+	buffer = malloc(1024);
+	dir = getcwd(buffer, 1024);
+	fullname = strcat(dir, "/001.m");
+	fp = fopen(fullname, "r");
+	if (fp == NULL)
 	{
-		printf("null tokens\n");
-		return (1);
+		dprintf(2, "Error: Can't open file %s\n", fullname);
+		exit(EXIT_FAILURE);
 	}
-	for (i = 0; tokens[i] != NULL; i++)
+	while ((bytes_read = getline(&line, &len, fp)) != -1)
 	{
-		printf("token %d: %s\n", i, tokens[i]);
+		tokens = parse_line(line);
+		i = 0;
+		while (tokens[i] != NULL)
+		{
+			printf("token %d: %s\n", i, tokens[i]);
+			i++;
+		}
 	}
-	x = valid_op(tokens);
-	if (x)
-		printf("valid\n");
-	free(tokens);
+	free(line);
+	free(buffer);
+	fclose(fp);
 	return (0);
 }

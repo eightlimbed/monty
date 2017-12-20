@@ -3,6 +3,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -33,7 +38,5 @@ typedef struct instruction_s
 } instruction_t;
 char **parse_line(char *line);
 int valid_op(char **tokens);
-/*
 int valid_arg(char **tokens);
-*/
 #endif
