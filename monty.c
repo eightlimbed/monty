@@ -18,6 +18,7 @@ void readfile(char *filename)
 	if (file == NULL)
 	{
 		printf("Error: Can't open file %s\n", filename);
+		free(buffer);
 		exit(EXIT_FAILURE);
 	}
 	while (-1 != getline(&buffer, &size, file))
@@ -27,21 +28,27 @@ void readfile(char *filename)
 		if (valid_op(tokens))
 		{
 			/* do stuff */
-			get_op_func(tokens)(stack, number);
+			get_op_func(tokens)(stack, number, tokens[1]);
 		}
 		if (tokens == NULL)
 		{
-			/* empty line */
+			/* blank line */
+			free(tokens);
+			free(buffer);
 			continue;
 		}
 		if (!(valid_op(tokens)))
 		{
 			dprintf(2,"L%d: unknown instruction %s\n", number, tokens[0]);
+			free(tokens);
+			free(buffer);
+			fclose(file);
 			exit(EXIT_FAILURE);
 		}
 	}
-	fclose(file);
+	free(tokens);
 	free(buffer);
+	fclose(file);
 }
 
 int main(int argc, char *argv[])

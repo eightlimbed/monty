@@ -6,14 +6,14 @@
  *
  * Return: pointer to the appropriate function, or NULL if not valid
  */
-void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number)
+void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number, char *arg)
 {
 	instruction_t ops[] = {
 		{"push", op_push},
 		{"pall", op_pall},
 		{NULL, NULL}
 	};
-	unsigned int  i = 0;
+	unsigned int i = 0;
 
 	while (ops[i].opcode != NULL)
 	{
@@ -21,6 +21,7 @@ void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number)
 			return(ops[i].f);
 		i++;
 	}
+	free(tokens);
 	return (NULL);
 }
 /**
