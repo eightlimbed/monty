@@ -1,10 +1,12 @@
-push 42
-pall 6
+push 10 
+push 20
+push 30
+
+swap
+
+
+pop
 
 pall
 
-push 30
-
-push
-push -20
-push - 23
+pint

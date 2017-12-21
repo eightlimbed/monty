@@ -6,10 +6,10 @@
  * Return: void
  */
 
-stack_t **stack = NULL;
+stack_t *stack = NULL;
 void readfile(char *filename)
 {
-	int number = 0, i = 0;
+	int number = 0;
 	char **tokens, *buffer = NULL;
 	size_t size = 0;
 	FILE *file;
@@ -28,7 +28,7 @@ void readfile(char *filename)
 		if (valid_op(tokens))
 		{
 			/* do stuff */
-			get_op_func(tokens)(stack, number, tokens[1]);
+			get_op_func(tokens)(&stack, number, tokens[1]);
 		}
 		if (tokens == NULL)
 		{

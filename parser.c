@@ -11,10 +11,14 @@ void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number, ch
 	instruction_t ops[] = {
 		{"push", op_push},
 		{"pall", op_pall},
+		{"pop", op_pop},
+		{"pint", op_pint},
+		{"swap", op_swap},
 		{NULL, NULL}
 	};
 	unsigned int i = 0;
 
+	printf("[%s][%s]\n", tokens[0], tokens[1]);
 	while (ops[i].opcode != NULL)
 	{
 		if ((strcmp(ops[i].opcode, tokens[0]) == 0) && valid_arg(tokens[1]))
@@ -44,30 +48,17 @@ char **parse_line(char *line)
 	tokens = malloc(sizeof(char *) * 3);
 	copy = strdup(line); /* free me? */
 	token = strtok(copy, " \n");
-	while (token != NULL)
-	{
-		if (strcmp(token, "push") == 0 || strcmp(token, "pall") == 0)
-		{
-			tokens[0] = token;
-			if (strcmp(token, "pall") == 0)
-			{
-				tokens[1] = NULL;
-				return (tokens);
-			}
-			token = strtok(NULL, " \n");
-			tokens[1] = token;
-			tokens[2] = NULL;
-			return (tokens);
-		}
-		else
-		{
-			tokens[0] = line;
-			tokens[1] = NULL;
-			return (tokens);
-		}
-		free(copy);
+	if (token == NULL)
 		return (NULL);
+	i = 0;
+	while (token != NULL && i < 2)
+	{
+		tokens[i] = token;
+		token = strtok(NULL, " \n");
+		i++;
 	}
+	tokens[i] = NULL;
+	return (tokens);
 }
 /**
  * valid_op - determines if a token is a valid operation
@@ -90,7 +81,7 @@ int valid_op(char **tokens)
 				return (1);
 		}
 	}
-	else if (strcmp(tokens[0], "pall") == 0)
+	else if ((strcmp(tokens[0], "pall") == 0) || (strcmp(tokens[0], "pop") == 0) || (strcmp(tokens[0], "swap") == 0) || (strcmp(tokens[0], "pint") == 0))
 	{
 		if (tokens[1] == NULL)
 			return (1);
