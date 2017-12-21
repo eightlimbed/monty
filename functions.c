@@ -93,13 +93,15 @@ void op_swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *ptr;
 
-	if ((*stack)->next == NULL || (*stack)->next->next == NULL)
+	if (*stack == NULL || (*stack)->next == NULL)
 		error_func(line_number, 4);
 	ptr = (*stack)->next;
 	(*stack)->prev = ptr;
 	(*stack)->next = ptr->next;
 	ptr->prev = NULL;
+	/*
 	ptr->next->prev = *stack;
+	*/
 	ptr->next = *stack;
 	*stack = ptr;
 }

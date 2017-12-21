@@ -15,6 +15,8 @@ void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number)
 		{"pop", op_pop},
 		{"pint", op_pint},
 		{"swap", op_swap},
+		{"add", op_add},
+		{"nop", op_nop},
 		{"\n", op_nop},
 		{NULL, NULL}
 	};
@@ -23,22 +25,25 @@ void (*get_op_func(char **tokens))(stack_t **stack, unsigned int line_number)
 	if (tokens == NULL)
 	{
 		/* blank line */
-		return(ops[5].f);
+		return(ops[7].f);
 	}
 	while (ops[i].opcode != NULL)
 	{
 		if ((strcmp(ops[i].opcode, tokens[0]) == 0))
 		{
-			if (strcmp(ops[i].opcode, "push") == 0 && valid_arg(tokens[1]))
+			if ((strcmp(ops[i].opcode, "push") == 0) && 
+				(tokens[1] == NULL || (!(valid_arg(tokens[1])))))
 			{
-				if (tokens[1] == NULL)
-				{
+				if (tokens[1] != NULL)
+					dprintf(2,"L: unknown instruction %s %s\n", 
+							tokens[0], tokens[1]);
+				else
 					dprintf(2,"L: unknown instruction %s\n", tokens[0]);
-					free(tokens);
-					exit(EXIT_FAILURE);
-				}
-				arg = atoi(tokens[1]);
+				free(tokens);
+				exit(EXIT_FAILURE);
 			}
+			else if ((strcmp(ops[i].opcode, "push") == 0))
+				arg = atoi(tokens[1]);
 			return(ops[i].f);
 		}
 		i++;

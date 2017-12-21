@@ -13,20 +13,19 @@ void op_nop(stack_t **stack, unsigned int line_number)
 
 void op_add(stack_t **stack, unsigned int line_number)
 {
-	unsigned int i = 0;
-	int sum = 0;
 	stack_t *ptr;
 
 	if (*stack == NULL || (*stack)->next == NULL)
-		error_func(line_number, 6);
-	ptr = *stack;
-	while (ptr != NULL || i <= 1)
 	{
-		sum += ptr->n;
-		ptr = ptr->next;
-		i++;
+		error_func(line_number, 5);
 	}
-	printf("%d\n", sum);
+	ptr = *stack;
+	if (ptr->next == NULL)
+		error_func(line_number, 5);
+	ptr->next->n += (*stack)->n;
+	*stack = (*stack)->next;
+	free(ptr);
+	(*stack)->prev = NULL;
 }
 
 void error_func(unsigned int line_number, int error_number)
@@ -43,17 +42,17 @@ void error_func(unsigned int line_number, int error_number)
 	}
 	else if (error_number == 3)
 	{
-		printf("L %d: Can't pop, stack empty", line_number);
+		printf("L%d: can't pop and empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else if (error_number == 4)
 	{
-		printf("L %d: Can't swap, stack too short", line_number);
+		printf("L%d: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else if (error_number == 5)
 	{
-		printf("L %d: Can't add, stack too short", line_number);
+		printf("L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
