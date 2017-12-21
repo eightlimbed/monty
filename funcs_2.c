@@ -54,13 +54,13 @@ void error_func(unsigned int line_number, int error_number)
 		printf("L%d: can't sub, stack too short\n", line_number);
 	else if (error_number == 7)
 		printf("L%d: can't div, stack too short\n", line_number);
-	else if (error_number == 7)
-		printf("L%d: division by zero\n", line_number);
 	else if (error_number == 8)
-		printf("L%d: can't mul, stack too short\n", line_number);
+		printf("L%d: division by zero\n", line_number);
 	else if (error_number == 9)
-		printf("L%d: can't mod, stack too short\n", line_number);
+		printf("L%d: can't mul, stack too short\n", line_number);
 	else if (error_number == 10)
+		printf("L%d: can't mod, stack too short\n", line_number);
+	else if (error_number == 11)
 		printf("L%d: division by zero\n", line_number);
 	exit(EXIT_FAILURE);
 }
