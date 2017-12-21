@@ -24,13 +24,9 @@ void readfile(char *filename)
 		line_number++;
 		tokens = parse_line(buffer);
 		if (tokens == NULL)
-		{
-			/* blank line (\n) */
-			free(buffer);
-			free(tokens);
 			continue;
-		}
-		get_op_func(tokens, line_number)(&stack, line_number);
+		else
+			get_op_func(tokens, line_number)(&stack, line_number);
 	}
 	fclose(file);
 	free(buffer);
