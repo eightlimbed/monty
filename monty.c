@@ -5,11 +5,10 @@
  *
  * Return: void
  */
-
-stack_t *stack = NULL;
 void readfile(char *filename)
 {
-	int number = 0;
+	stack_t *stack = NULL;
+	int line_number = 0;
 	char **tokens, *buffer = NULL;
 	size_t size = 0;
 	FILE *file;
@@ -18,28 +17,29 @@ void readfile(char *filename)
 	if (file == NULL)
 	{
 		printf("Error: Can't open file %s\n", filename);
-		free(buffer);
 		exit(EXIT_FAILURE);
 	}
 	while (-1 != getline(&buffer, &size, file))
 	{
-		number++;
+		line_number++;
 		tokens = parse_line(buffer);
-		/* do stuff */
 		if (tokens == NULL)
 		{
-			/* blank line */
+			/* blank line (\n) */
 			free(tokens);
-			/*free(buffer);*/
 			continue;
 		}
-		get_op_func(tokens)(&stack, number);
+		get_op_func(tokens, line_number)(&stack, line_number);
 	}
-/*	free(tokens);
-	free(buffer); */
+	free(buffer);
 	fclose(file);
 }
-
+/**
+ * main - entry point - handle user input from the command line
+ * @argc: argument count
+ * @argv: arguments (strings)
+ * return: 0 for success, EXIT_FAILURE on errors
+ */
 int main(int argc, char *argv[])
 {
 	char *filename;
@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
 	filename = argv[1];
 	if (argc != 2)
 	{
-		dprintf(2, "USAGE: monty file\n");
+		printf("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	readfile(filename);
-	return (1);
+	return (0);
 }

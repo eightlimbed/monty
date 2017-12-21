@@ -99,9 +99,6 @@ void op_swap(stack_t **stack, unsigned int line_number)
 	(*stack)->prev = ptr;
 	(*stack)->next = ptr->next;
 	ptr->prev = NULL;
-	/*
-	ptr->next->prev = *stack;
-	*/
 	ptr->next = *stack;
 	*stack = ptr;
 }
