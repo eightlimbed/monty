@@ -32,14 +32,28 @@ void op_add(stack_t **stack, unsigned int line_number)
 void error_func(unsigned int line_number, int error_number)
 {
 	if (error_number == 1)
+	{
 		printf("L %d: usage: push integer", line_number);
+		exit(EXIT_FAILURE);
+	}
 	else if (error_number == 2)
+	{
 		printf("L %d: Can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
 	else if (error_number == 3)
+	{
 		printf("L %d: Can't pop, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
 	else if (error_number == 4)
+	{
 		printf("L %d: Can't swap, stack too short", line_number);
+		exit(EXIT_FAILURE);
+	}
 	else if (error_number == 5)
+	{
 		printf("L %d: Can't add, stack too short", line_number);
-
+		exit(EXIT_FAILURE);
+	}
 }
