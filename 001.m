@@ -1,12 +1,4 @@
-push 10 
-push 20
-push 30
-
-swap
-
-
+push 5555 
 pop
-
+push 5
 pall
-
-pint

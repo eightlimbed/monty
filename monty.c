@@ -25,11 +25,7 @@ void readfile(char *filename)
 	{
 		number++;
 		tokens = parse_line(buffer);
-		if (valid_op(tokens))
-		{
-			/* do stuff */
-			get_op_func(tokens)(&stack, number, tokens[1]);
-		}
+		/* do stuff */
 		if (tokens == NULL)
 		{
 			/* blank line */
@@ -37,14 +33,7 @@ void readfile(char *filename)
 			free(buffer);
 			continue;
 		}
-		if (!(valid_op(tokens)))
-		{
-			dprintf(2,"L%d: unknown instruction %s\n", number, tokens[0]);
-			free(tokens);
-			free(buffer);
-			fclose(file);
-			exit(EXIT_FAILURE);
-		}
+		get_op_func(tokens)(&stack, number);
 	}
 	free(tokens);
 	free(buffer);
