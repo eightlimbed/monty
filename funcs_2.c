@@ -42,7 +42,7 @@ void error_func(unsigned int line_number, int error_number)
 {
 	if (error_number == 1)
 	{
-		printf("L %d: usage: push integer", line_number);
+		printf("L%d: usage: push integer", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else if (error_number == 2)
@@ -65,4 +65,26 @@ void error_func(unsigned int line_number, int error_number)
 		printf("L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+}
+/**
+ * free_list - frees a doubly-linked list
+ * @stack: pointer to head node
+ * Return: void
+ */
+void free_list(stack_t **stack)
+{
+	stack_t *temp;
+
+	if (*stack == NULL)
+		return;
+	while (*stack != NULL)
+	{
+		temp = (*stack)->next;
+		free(*stack);
+		if (temp == NULL)
+			return;
+		temp->prev = NULL;
+		*stack = temp;
+	}
+	free(*stack);
 }

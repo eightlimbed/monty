@@ -26,6 +26,7 @@ void readfile(char *filename)
 		if (tokens == NULL)
 		{
 			/* blank line (\n) */
+			free(buffer);
 			free(tokens);
 			continue;
 		}
@@ -33,6 +34,7 @@ void readfile(char *filename)
 	}
 	fclose(file);
 	free(buffer);
+	free_list(&stack);
 }
 /**
  * main - entry point - handle user input from the command line

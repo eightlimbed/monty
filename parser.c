@@ -8,21 +8,19 @@
  */
 char **parse_line(char *line)
 {
-	char *token, *copy, **tokens;
+	char *token, **tokens;
 	unsigned int i;
 
-	tokens = malloc(sizeof(char *) * 2);
+	tokens = malloc(sizeof(char *) * 3);
 	if (tokens == NULL)
 	{
 		printf("Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
-	copy = strdup(line); /* free me? */
-	token = strtok(copy, " \n");
+	token = strtok(line, " \n");
 	if (token == NULL)
 	{
 		free(tokens);
-		free(copy);
 		return (NULL);
 	}
 	i = 0;
@@ -32,6 +30,7 @@ char **parse_line(char *line)
 		token = strtok(NULL, " \n");
 		i++;
 	}
+	tokens[i] = NULL;
 	return (tokens);
 }
 /**
@@ -63,13 +62,8 @@ void (*get_op_func(char **tokens, unsigned int line_number))(stack_t **stack, un
 			if ((strcmp(ops[i].opcode, "push") == 0) && 
 				(tokens[1] == NULL || (!(valid_arg(tokens[1])))))
 			{
-				if (tokens[1] != NULL)
-					printf("L%d: unknown instruction %s %s\n",
-							line_number, tokens[0], tokens[1]);
-				else
-					printf("L%d: unknown instruction %s\n",
-							line_number, tokens[0]);
 				free(tokens);
+				printf("L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 			else if ((strcmp(ops[i].opcode, "push") == 0))
