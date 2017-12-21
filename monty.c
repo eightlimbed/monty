@@ -31,8 +31,8 @@ void readfile(char *filename)
 		}
 		get_op_func(tokens, line_number)(&stack, line_number);
 	}
-	free(buffer);
 	fclose(file);
+	free(buffer);
 }
 /**
  * main - entry point - handle user input from the command line

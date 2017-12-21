@@ -74,6 +74,7 @@ void (*get_op_func(char **tokens, unsigned int line_number))(stack_t **stack, un
 			}
 			else if ((strcmp(ops[i].opcode, "push") == 0))
 				arg = atoi(tokens[1]);
+			free(tokens);
 			return (ops[i].f);
 		}
 		i++;
