@@ -41,30 +41,28 @@ void op_add(stack_t **stack, unsigned int line_number)
 void error_func(unsigned int line_number, int error_number)
 {
 	if (error_number == 1)
-	{
 		printf("L%d: usage: push integer", line_number);
-		exit(EXIT_FAILURE);
-	}
 	else if (error_number == 2)
-	{
 		printf("L%d: can't pint, stack empty\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 	else if (error_number == 3)
-	{
 		printf("L%d: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 	else if (error_number == 4)
-	{
 		printf("L%d: can't swap, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	}
 	else if (error_number == 5)
-	{
 		printf("L%d: can't add, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	else if (error_number == 6)
+		printf("L%d: can't sub, stack too short\n", line_number);
+	else if (error_number == 7)
+		printf("L%d: can't div, stack too short\n", line_number);
+	else if (error_number == 7)
+		printf("L%d: division by zero\n", line_number);
+	else if (error_number == 8)
+		printf("L%d: can't mul, stack too short\n", line_number);
+	else if (error_number == 9)
+		printf("L%d: can't mod, stack too short\n", line_number);
+	else if (error_number == 10)
+		printf("L%d: division by zero\n", line_number);
+	exit(EXIT_FAILURE);
 }
 /**
  * free_list - frees a doubly-linked list
