@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * push_op - Pushes an element onto the stack
+ * op_push - Pushes an element onto the stack
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
  * Return: void
@@ -27,7 +27,7 @@ void op_push(stack_t **stack, unsigned int line_number)
 		new_node->next->prev = new_node;
 }
 /**
- * pall_op - Prints all elements of the stack
+ * op_pall - Prints all elements of the stack
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
  * Return: void
@@ -47,7 +47,7 @@ void op_pall(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * pint_op - Prints the value at the top of the stack
+ * op_pint - Prints the value at the top of the stack
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
  * Return: void
@@ -59,7 +59,7 @@ void op_pint(stack_t **stack, unsigned int line_number)
 	printf("%d\n", (*stack)->n);
 }
 /**
- * pop_op - Removes the top element of the stack.
+ * op_pop - Removes the top element of the stack.
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
  * Return: void
@@ -86,7 +86,7 @@ void op_pop(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * swap_op - swaps top two elements of the stack
+ * op_swap - swaps top two elements of the stack
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
  * Return: void

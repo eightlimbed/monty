@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * parse_line - parses a line into tokens. tokens separated by " " and "\n". 
+ * parse_line - parses a line into tokens. tokens separated by " " and "\n".
  * only first two tokens will be returned if successful.
  * @line: buffer from getline in readfile() in monty.c.
  *
@@ -17,7 +17,7 @@ char **parse_line(char *line)
 		printf("Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(line, " \n");
+	token = strtok(line, " '\n'");
 	if (token == NULL)
 	{
 		free(tokens);
@@ -27,7 +27,7 @@ char **parse_line(char *line)
 	while (token != NULL && i < 2)
 	{
 		tokens[i] = token;
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, " '\n'");
 		i++;
 	}
 	tokens[i] = NULL;
@@ -41,7 +41,8 @@ char **parse_line(char *line)
  * Return: pointer to the appropriate function, or NULL if not valid
  */
 int arg = 0; /* global (extern) variable defined in header */
-void (*get_op_func(char **tokens, unsigned int line_number))(stack_t **stack, unsigned int line_number)
+void (*get_op_func(char **tokens, unsigned int line_number))
+(stack_t **stack, unsigned int line_number)
 {
 	instruction_t ops[] = {
 		{"push", op_push},
@@ -59,7 +60,7 @@ void (*get_op_func(char **tokens, unsigned int line_number))(stack_t **stack, un
 	{
 		if ((strcmp(ops[i].opcode, tokens[0]) == 0))
 		{
-			if ((strcmp(ops[i].opcode, "push") == 0) && 
+			if ((strcmp(ops[i].opcode, "push") == 0) &&
 				(tokens[1] == NULL || (!(valid_arg(tokens[1])))))
 			{
 				free(tokens);
@@ -97,17 +98,14 @@ int valid_arg(char *token)
 		{
 			if ((!(token[1] >= '0' && token[1] <= '9')) || token[1] == '\0')
 				return (0);
-			else
+			i = 1;
+			while (token[i] >= '0' && token[i] <= '9')
 			{
-				i = 1;
-				while (token[i] >= '0' && token[i] <= '9')
-				{
-					i++;
-					if (token[i] == '\0')
-						return (1);
-				}
-				return (0);
+				i++;
+				if (token[i] == '\0')
+					return (1);
 			}
+			return (0);
 		}
 		else
 		{

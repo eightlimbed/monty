@@ -36,7 +36,7 @@ void readfile(char *filename)
  * main - entry point - handle user input from the command line
  * @argc: argument count
  * @argv: arguments (strings)
- * return: 0 for success, EXIT_FAILURE on errors
+ * Return: 0 for success, EXIT_FAILURE on errors
  */
 int main(int argc, char *argv[])
 {
