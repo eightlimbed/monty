@@ -13,6 +13,8 @@ Monty ByteCodes files.
 
 To run the program, enter: `./monty <file>`
 
+Feel free to use `001.m` as a test file.
+
 ---
 
 **Operations**
