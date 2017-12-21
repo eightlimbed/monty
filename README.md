@@ -33,7 +33,6 @@ List of monty operations this interpreted understands:
 
 File Name | Description
 --- | ---
----
 `monty.c` | Main program file
 `monty.h` | Header file
 `parser.c` | Parses each line of Monty file
@@ -43,6 +42,6 @@ File Name | Description
 
 ---
 
-This project was built by [http://github.com/vkalia602](Sue Kalia) and
-[http://github.com/eightlimbed](Lee Gaines) at
-[http://holbertonschool.com](Holberton School)
+This project was built by [Sue Kalia](http://github.com/vkalia602) and
+[Lee Gaines](http://github.com/eightlimbed)at
+[Holberton School](http://holbertonschool.com)
