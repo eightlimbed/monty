@@ -52,7 +52,7 @@ void error_func(unsigned int line_number, int error_number)
 	}
 	else if (error_number == 3)
 	{
-		printf("L%d: can't pop and empty stack\n", line_number);
+		printf("L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else if (error_number == 4)
