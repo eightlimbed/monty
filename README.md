@@ -10,9 +10,6 @@ Monty ByteCodes files.
 ---
 
 **Usage**
-After cloning this repository, compile **monty** using `gcc` (preferably version
-4.8.4):
-`gcc -Wall -Werror -Wextra -pedantic *.c -o monty`
 
 To run the program, enter: `./monty <file>`
 
@@ -43,5 +40,5 @@ File Name | Description
 ---
 
 This project was built by [Sue Kalia](http://github.com/vkalia602) and
-[Lee Gaines](http://github.com/eightlimbed)at
+[Lee Gaines](http://github.com/eightlimbed) at
 [Holberton School](http://holbertonschool.com)
