@@ -8,13 +8,12 @@
 void op_push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
-	(void) line_number;
 
 	new_node = malloc(sizeof(stack_t));
-	/*
+
 	if (new_node == NULL)
-		exit_func(line_number, 1);
-	*/
+		error_func(line_number, 1);
+
 	new_node->n = arg;
 	if (*stack == NULL)
 		new_node->next = NULL;
@@ -53,12 +52,8 @@ void op_pall(stack_t **stack, unsigned int line_number)
  */
 void op_pint(stack_t **stack, unsigned int line_number)
 {
-	(void) line_number;
-
-	/*
 	if (*stack == NULL)
-		error_func(line_number, 3);
-	*/
+		error_func(line_number, 2);
 	printf("%d\n", (*stack)->n);
 }
 /**
@@ -70,12 +65,10 @@ void op_pint(stack_t **stack, unsigned int line_number)
 void op_pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *ptr;
-	(void) line_number;
 
-	/*
 	if (*stack == NULL)
-		error_func(line_number, 4);
-	*/
+		error_func(line_number, 3);
+
 	if ((*stack)->next == NULL)
 	{
 		free(*stack);
@@ -83,7 +76,6 @@ void op_pop(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		printf("in here\n");
 		ptr = (*stack)->next;
 		(*stack) = ptr;
 		ptr = ptr->prev;
@@ -100,8 +92,9 @@ void op_pop(stack_t **stack, unsigned int line_number)
 void op_swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *ptr;
-	(void) line_number;
 
+	if ((*stack)->next == NULL || (*stack)->next->next == NULL)
+		error_func(line_number, 4);
 	ptr = (*stack)->next;
 	(*stack)->prev = ptr;
 	(*stack)->next = ptr->next;
@@ -109,9 +102,4 @@ void op_swap(stack_t **stack, unsigned int line_number)
 	ptr->next->prev = *stack;
 	ptr->next = *stack;
 	*stack = ptr;
-}
-void op_nop(stack_t **stack, unsigned int line_number)
-{
-	(void) stack;
-	(void) line_number;
 }

@@ -30,13 +30,13 @@ void readfile(char *filename)
 		{
 			/* blank line */
 			free(tokens);
-			free(buffer);
+			/*free(buffer);*/
 			continue;
 		}
 		get_op_func(tokens)(&stack, number);
 	}
-	free(tokens);
-	free(buffer);
+/*	free(tokens);
+	free(buffer); */
 	fclose(file);
 }
 

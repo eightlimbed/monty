@@ -65,6 +65,11 @@ char **parse_line(char *line)
 		exit(EXIT_FAILURE);
 	}
 	tokens = malloc(sizeof(char *) * 2);
+	if (tokens == NULL)
+	{
+		printf("Error: Malloc failed");
+		exit(EXIT_FAILURE);
+	}
 	copy = strdup(line); /* free me? */
 	token = strtok(copy, " \n");
 	if (token == NULL)
@@ -79,44 +84,6 @@ char **parse_line(char *line)
 	return (tokens);
 }
 /**
- * valid_op - determines if a token is a valid operation
- * @tokens: array of strings (tokens)
- *
- * Return: 1 if valid, 0 if not
- */
-/*
-int valid_op(char **tokens)
-{
-
-	if (tokens == NULL)
-		return (0);
-	if (strcmp(tokens[0], "push") == 0)
-	{
-		if (tokens[1] == NULL)
-			return (0);
-		else
-		{
-			if (valid_arg(tokens[1]))
-			{
-				arg = atoi(tokens[1]);
-				return (1);
-			}
-		}
-	}
-	else if ((strcmp(tokens[0], "pall") == 0) ||
-			(strcmp(tokens[0], "pop") == 0)   ||
-			(strcmp(tokens[0], "swap") == 0)  ||
-			(strcmp(tokens[0], "pint") == 0))
-	{
-		if (tokens[1] == NULL)
-			return (1);
-		else
-			return (0);
-	}
-	return (0);
-}
-*/
-/**
  * valid_arg - determines if a token is a valid argument
  * @token: argument token from valid_op.
  *
@@ -125,7 +92,7 @@ int valid_op(char **tokens)
 int valid_arg(char *token)
 {
 	unsigned int i;
-	
+
 	/* if token is NULL its an op with no argument, so its valid */
 	if (token == NULL)
 		return (1);
