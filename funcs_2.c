@@ -37,7 +37,7 @@ void error_func(unsigned int line_number, int error_number)
 	}
 	else if (error_number == 2)
 	{
-		printf("L %d: Can't pint, stack empty", line_number);
+		printf("L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else if (error_number == 3)
