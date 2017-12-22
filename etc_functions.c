@@ -11,28 +11,6 @@ void op_nop(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 }
 /**
- * op_add - adds the n value of the top two node, then pops.
- * @stack: doubly linked list representation of the stack (void)
- * @line_number: Line number of the instruction (void)
- * Return: void
- */
-void op_add(stack_t **stack, unsigned int line_number)
-{
-	stack_t *ptr;
-
-	if (*stack == NULL || (*stack)->next == NULL)
-	{
-		error_func(line_number, 5);
-	}
-	ptr = *stack;
-	if (ptr->next == NULL)
-		error_func(line_number, 5);
-	ptr->next->n += (*stack)->n;
-	*stack = (*stack)->next;
-	free(ptr);
-	(*stack)->prev = NULL;
-}
-/**
  * error_func - prints various error messages and the exits the program.
  * @line_number: line number of the monty file
  * @error_number: error number given from op function

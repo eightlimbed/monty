@@ -27,38 +27,6 @@ void op_push(stack_t **stack, unsigned int line_number)
 		new_node->next->prev = new_node;
 }
 /**
- * op_pall - Prints all elements of the stack
- * @stack: doubly linked list representation of the stack
- * @line_number: Line number of the instruction
- * Return: void
- */
-void op_pall(stack_t **stack, unsigned int line_number)
-{
-	const stack_t *ptr;
-	(void) line_number;
-
-	if (stack == NULL)
-		exit(EXIT_FAILURE);
-	ptr = *stack;
-	while (ptr != NULL)
-	{
-		printf("%d\n", ptr->n);
-		ptr = ptr->next;
-	}
-}
-/**
- * op_pint - Prints the value at the top of the stack
- * @stack: doubly linked list representation of the stack
- * @line_number: Line number of the instruction
- * Return: void
- */
-void op_pint(stack_t **stack, unsigned int line_number)
-{
-	if (*stack == NULL)
-		error_func(line_number, 2);
-	printf("%d\n", (*stack)->n);
-}
-/**
  * op_pop - Removes the top element of the stack.
  * @stack: doubly linked list representation of the stack
  * @line_number: Line number of the instruction
@@ -103,4 +71,36 @@ void op_swap(stack_t **stack, unsigned int line_number)
 	ptr->prev = NULL;
 	ptr->next = *stack;
 	*stack = ptr;
+}
+/**
+ * op_pall - Prints all elements of the stack
+ * @stack: doubly linked list representation of the stack
+ * @line_number: Line number of the instruction
+ * Return: void
+ */
+void op_pall(stack_t **stack, unsigned int line_number)
+{
+	const stack_t *ptr;
+	(void) line_number;
+
+	if (stack == NULL)
+		exit(EXIT_FAILURE);
+	ptr = *stack;
+	while (ptr != NULL)
+	{
+		printf("%d\n", ptr->n);
+		ptr = ptr->next;
+	}
+}
+/**
+ * op_pint - Prints the value at the top of the stack
+ * @stack: doubly linked list representation of the stack
+ * @line_number: Line number of the instruction
+ * Return: void
+ */
+void op_pint(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL)
+		error_func(line_number, 2);
+	printf("%d\n", (*stack)->n);
 }

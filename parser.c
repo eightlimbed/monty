@@ -51,7 +51,11 @@ void (*get_op_func(char **tokens, unsigned int line_number))
 		{"pint", op_pint},
 		{"swap", op_swap},
 		{"add", op_add},
+		{"sub", op_sub},
+		{"mul", op_mul},
 		{"nop", op_nop},
+		{"div", op_div},
+		{"mod", op_mod},
 		{NULL, NULL}
 	};
 	unsigned int i = 0;

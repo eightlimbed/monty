@@ -40,7 +40,7 @@ extern int arg;
 char **parse_line(char *line);
 int valid_op(char **tokens);
 int valid_arg(char *tokens);
-void (*get_op_func(char **tokens, unsigned int line_number)) \
+void (*get_op_func(char **tokens, unsigned int line_number))
 	(stack_t **stack, unsigned int line_number);
 void op_push(stack_t **stack, unsigned int line_number);
 void op_pall(stack_t **stack, unsigned int line_number);
@@ -49,6 +49,10 @@ void op_pint(stack_t **stack, unsigned int line_number);
 void op_swap(stack_t **stack, unsigned int line_number);
 void op_nop(stack_t **stack, unsigned int line_number);
 void op_add(stack_t **stack, unsigned int line_number);
+void op_sub(stack_t **stack, unsigned int line_number);
+void op_mul(stack_t **stack, unsigned int line_number);
+void op_div(stack_t **stack, unsigned int line_number);
+void op_mod(stack_t **stack, unsigned int line_number);
 void error_func(unsigned int line_number, int error_number);
 void free_list(stack_t **stack);
 #endif
