@@ -56,4 +56,5 @@ void op_mod(stack_t **stack, unsigned int line_number);
 void error_func(unsigned int line_number, int error_number);
 void free_list(stack_t **stack);
 void op_pchar(stack_t **stack, unsigned int line_number);
+void op_pstr(stack_t **stack, unsigned int line_number);
 #endif
