@@ -33,16 +33,15 @@ char **parse_line(char *line)
 	tokens[i] = NULL;
 	return (tokens);
 }
+int arg = 0; /* global (extern) variable defined in header */
 /**
  * get_op_func - selects the correct function to perform from tokens
  * @tokens: array of strings
- * @line_number: line number in monty code file
+ * @ln: line number in monty code file
  *
  * Return: pointer to the appropriate function, or NULL if not valid
  */
-int arg = 0; /* global (extern) variable defined in header */
-void (*get_op_func(char **tokens, unsigned int line_number))
-(stack_t **stack, unsigned int line_number)
+void (*get_op_func(char **tokens, unsigned int ln))(stack_t **, unsigned int)
 {
 	instruction_t ops[] = {
 		{"push", op_push},
@@ -68,7 +67,7 @@ void (*get_op_func(char **tokens, unsigned int line_number))
 				(tokens[1] == NULL || (!(valid_arg(tokens[1])))))
 			{
 				free(tokens);
-				printf("L%d: usage: push integer\n", line_number);
+				printf("L%d: usage: push integer\n", ln);
 				exit(EXIT_FAILURE);
 			}
 			else if ((strcmp(ops[i].opcode, "push") == 0))
@@ -78,7 +77,7 @@ void (*get_op_func(char **tokens, unsigned int line_number))
 		}
 		i++;
 	}
-	printf("L%d: unknown instruction %s\n", line_number, tokens[0]);
+	printf("L%d: unknown instruction %s\n", ln, tokens[0]);
 	free(tokens);
 	exit(EXIT_FAILURE);
 }
