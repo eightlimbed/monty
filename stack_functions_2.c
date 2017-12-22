@@ -8,10 +8,13 @@ void op_pchar(stack_t **stack, unsigned int line_number)
 		error_func(line_number, 12);
 	x = (*stack)->n;
 	if (x >= 1 && x <= 127)
+	{
 		putchar(x);
+		putchar('\n');
+	}
 	else
 	{
-		printf("L%d: can't pchar, value out of range", line_number);
+		printf("L%d: can't pchar, value out of range\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
