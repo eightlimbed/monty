@@ -42,7 +42,6 @@ void error_func(unsigned int line_number, int error_number)
 		printf("L%d: division by zero\n", line_number);
 	else if (error_number == 12)
 		printf("L%d: can't pchar, value out of range", line_number);
-
 	exit(EXIT_FAILURE);
 }
 /**
