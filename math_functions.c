@@ -80,7 +80,7 @@ void op_div(stack_t **stack, unsigned int line_number)
 		error_func(line_number, 7);
 	}
 	ptr = *stack;
-	if(ptr->n == 0)
+	if (ptr->n == 0)
 		error_func(line_number, 8);
 	if (ptr->next == NULL)
 		error_func(line_number, 7);
